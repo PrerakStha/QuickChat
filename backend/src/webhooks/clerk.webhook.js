@@ -24,11 +24,12 @@ router.post("/", async (req, res) => {
             const u = evt.data;
 
             const email =
-                u.emailaddress?.find((e) => e.id === u.primary_email_address_id)?.email_address || null;
-            u.emailaddress?.[0]?.email_address || null;
+                u.email_addresses?.find((e) => e.id === u.primary_email_address_id)?.email_address || null;
+            u.email_addresses?.[0]?.email_address || 
+            null;
 
             const fullName =
-                [u.firstname, u.lastname].filter(Boolean).join(" ") || u.username || email?.split("@")[0] || "Unknown User";
+                [u.first_name, u.last_name].filter(Boolean).join(" ") || u.username || email?.split("@")[0] || "Unknown User";
 
             await User.findOneAndUpdate({ clerkId: u.id },
                 { clerkId: u.id, email, fullName, profilePic: u.image_url },
