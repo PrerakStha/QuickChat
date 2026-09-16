@@ -1,7 +1,7 @@
 import express from "express";
 import User from "../models/user.model.js";
-import { verifyWebhook } from "@clerk/clerk-sdk-node";
-import clerkWebhook from "./webhooks/clerk.webhook.js";
+import { verifyWebhook } from "@clerk/backend/webhooks";
+
 
 const router = express.Router();
 
@@ -24,9 +24,8 @@ router.post("/", async (req, res) => {
             const u = evt.data;
 
             const email =
-                u.email_addresses?.find((e) => e.id === u.primary_email_address_id)?.email_address || null;
-            u.email_addresses?.[0]?.email_address || 
-            null;
+            u.email_addresses?.find((e) => e.id === u.primary_email_address_id)?.email_address ?? 
+            u.email_addresses?.[0]?.email_address;
 
             const fullName =
                 [u.first_name, u.last_name].filter(Boolean).join(" ") || u.username || email?.split("@")[0] || "Unknown User";
