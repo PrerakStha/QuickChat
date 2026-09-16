@@ -8,6 +8,7 @@ import "dotenv/config";
 import fs from "fs";
 import path from "path";
 import { clerkMiddleware } from "@clerk/express";
+import job from "./lib/cron.js";
 
 
 import User from "./models/user.model.js";
@@ -49,4 +50,8 @@ app.get("/*splat", (req, res, next) => {
 app.listen(PORT, () => {
   connectDB();
   console.log("Server is running on port", PORT);
+
+  if(process.env.NODE_ENV === "production") {
+    job.start()
+}
 });
