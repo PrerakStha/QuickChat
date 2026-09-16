@@ -30,11 +30,11 @@ app.get("/health", (req, res) => {
 // Serve Static Frontend or Fallback API Route
 if (fs.existsSync(publicDir)) {
   app.use(express.static(publicDir));
-  app.get("*", (req, res, next) => {
-    res.sendFile(path.join(publicDir, "index.html"), (err) => {
-      if (err) next(err);
-    });
+app.get("/*splat", (req, res, next) => {
+  res.sendFile(path.join(publicDir, "index.html"), (err) => {
+    if (err) next(err);
   });
+});
 } else {
   app.get("/", (req, res) => {
     res.send("QuickChat API is running standard operations.");
