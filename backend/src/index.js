@@ -9,13 +9,17 @@ import fs from "fs";
 import path from "path";
 import { clerkMiddleware } from "@clerk/express";
 
+
 import User from "./models/user.model.js";
 import { connectDB } from "./lib/db.js";
+import clerkWebhook from "./webhooks/clerk.webhook.js";
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:3001";
 const publicDir = path.join(process.cwd(), "public");
+
+app.use("/api/webhook/clerk",express.raw({type:"application/json"}), clerkWebhook);
 
 // Middlewares
 app.use(express.json());
