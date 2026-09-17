@@ -14,6 +14,7 @@ import job from "./lib/cron.js";
 import User from "./models/user.model.js";
 import { connectDB } from "./lib/db.js";
 import clerkWebhook from "./webhooks/clerk.webhook.js";
+import authRoutes from "./routes/auth.route.js";
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -31,6 +32,8 @@ app.use(clerkMiddleware());
 app.get("/health", (req, res) => {
   res.status(200).json({ status: "ok" });
 });
+
+app.use("/api/auth", authRoutes);
 
 // Serve Static Frontend or Fallback API Route
 if (fs.existsSync(publicDir)) {
