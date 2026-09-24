@@ -7,7 +7,7 @@ const server = http.createServer(app);
 
 
 const io = new Server(server,{
-  cors: {origin: [allowedOrigin]}});
+  cors: {origin: ["http://localhost:3001", "https://quickchat-frontend.vercel.app"], credentials: true}});
 
 function getReceiverSocketId(receiverId) {
     return userSocketMap[receiverId] || null;
