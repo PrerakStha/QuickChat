@@ -20,7 +20,7 @@ import { app, server } from "./lib/socket.js";
 
 
 const PORT = process.env.PORT || 5000;
-const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:3001";
+const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:5173";
 const publicDir = path.join(process.cwd(), "public");
 
 app.use("/api/webhook/clerk",express.raw({type:"application/json"}), clerkWebhook);
